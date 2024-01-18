@@ -7,11 +7,14 @@ from selenium.webdriver.support.wait import WebDriverWait
 
 from webdriver_manager.chrome import ChromeDriverManager
 
+import requests
+
+import datetime
 
 import config_parser
 
 ORTUS_LOGIN_URL = "https://id2.rtu.lv/openam/UI/Login"
-LOAD_TIMEOUT_SECS = 5
+LOAD_TIMEOUT_SECS = 20
 
 
 class CalendarScraper:
@@ -111,4 +114,44 @@ class CalendarScraper:
             )
 
     def download_schedule_file(self):
-        pass
+        try:
+            ical_download_a_xpath = r"/html/body/div[1]/div/div[4]/div[1]/div/div[4]/div/div[1]/div[2]/div/div[3]/div[1]/div/div[2]/p[4]/a"
+
+            ical_download_a_loaded = expected_conditions.presence_of_element_located(
+                (By.XPATH, ical_download_a_xpath)
+            )
+
+            WebDriverWait(self.driver, LOAD_TIMEOUT_SECS).until(ical_download_a_loaded)
+
+            ical_download_a = self.driver.find_element(By.XPATH, ical_download_a_xpath)
+
+            ical_url = ical_download_a.get_attribute("href")
+
+            # Lai saglabātu sesiju starp Selenium un lejupielādēšanas veikšanu vajag saglabāt Selenium cookies
+            selenium_session_cookies = self.driver.get_cookies()
+
+            # Nepieciešams pārveidot Selenium sniegtos cookies requests bibliotēkas lasāmā formātā
+            session_cookies = {}
+            for cookie in selenium_session_cookies:
+                session_cookies[cookie["name"]] = cookie["value"]
+
+            try:
+                ical_url_response = requests.get(
+                    ical_url,
+                    cookies=session_cookies,
+                    timeout=LOAD_TIMEOUT_SECS,
+                )
+                ical_url_response.raise_for_status()
+
+                with open("grafiks.ics", mode="wb") as f:
+                    f.write(ical_url_response.content)
+
+            except requests.exceptions.RequestException as err:
+                self.driver.quit()
+                print(f"Kļūda HTTP pieprasījuma veikšanā: {err}")
+
+        except TimeoutError as err:
+            self.driver.quit()
+            print(
+                f"Kļūda: ORTUS ielogošanās lapa '{ORTUS_LOGIN_URL}' lādējās pārāk ilgi: {err}"
+            )
