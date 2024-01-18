@@ -16,7 +16,8 @@ LOAD_TIMEOUT_SECS = 20
 
 
 class CalendarScraper:
-    def __init__(self):
+    def __init__(self, schedule_path: str):
+        self.schedule_path = schedule_path
         self.credentials = get_ortus_credentials()
 
         service = Service(ChromeDriverManager().install())
@@ -143,7 +144,7 @@ class CalendarScraper:
                 )
                 ical_url_response.raise_for_status()
 
-                with open("grafiks.ics", mode="wb") as f:
+                with open(self.schedule_path, mode="wb") as f:
                     f.write(ical_url_response.content)
 
             except requests.exceptions.RequestException as err:

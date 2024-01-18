@@ -3,7 +3,7 @@ import calendar_sync
 
 
 def main():
-    # calendar_scraper.CalendarScraper()
+    calendar_scraper.CalendarScraper("grafiks.ics")
     calendar_sync.CalendarSync()
 
 
