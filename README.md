@@ -14,7 +14,7 @@ Izstrādāt programmatūru, kas automatizēti iegūst studenta nodarbību grafik
 ### SVARĪGI VĒRTĒTĀJAM
 Google Calendar API ierobežojumu dēļ jebkurš lietotājs ar Google kontu nevar lietot vai izmēģināt programmatūru, ja nav pats izveidojis Google Cloud projektu uz sava Google konta un sakonfigurējis OAuth piekrišanas atļaujas un ieguvis savu OAuth klienta kredenciāļu JSON failu, kas ir nepieciešams, lai varētu lietot Google Calendar API bez Cloud projekta publicēšanas, kas nav iespējams šī projekta darba ietvaros. Vairāk informācijas skatīt [šeit](https://developers.google.com/calendar/api/quickstart/python#set_up_your_environment).
 
-Repozitorijā ir iekļauts fails `credentials.json`, kas ir nepieciešams OAuth autentifikācijas veikšanai. Gadījumā, ja izvēlaties izveidot un uzstādīt pats savu Google Cloud projektu, tad šo datni nepieciešams aizstāt ar savam projektam raksturīgo datni. Vairāk informācijas skatīt [šeit](https://developers.google.com/calendar/api/quickstart/python#authorize_credentials_for_a_desktop_application).
+Repozitorijā __nav__ iekļauts fails `credentials.json`, kas ir nepieciešams OAuth autentifikācijas veikšanai. Gadījumā, ja izvēlaties izveidot un uzstādīt pats savu Google Cloud projektu, tad šo datni nepieciešams aizstāt ar savam projektam raksturīgo datni. Vairāk informācijas skatīt [šeit](https://developers.google.com/calendar/api/quickstart/python#authorize_credentials_for_a_desktop_application).
 
 Ja vēlaties izmēģināt OKS uz sava datora bez Google Cloud projekta uzstādīšanas, lūdzu atsūtiet savu Gmail e-pasta adresi, kuru izmantosiet pārbaudes veikšanai uz manu RTU e-pasta adresi, lai varu pievienot Jūsu Google kontu kā testa lietotāju. 
 
