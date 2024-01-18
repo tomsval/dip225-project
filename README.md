@@ -11,7 +11,6 @@ Izstrādāt programmatūru, kas automatizēti iegūst studenta nodarbību grafik
 
 ## Uzstādīšana
 ## Lietošana
-
 ## Izmantotās bibliotēkas
 
 ## Programmatūras metožu apraksts

@@ -9,7 +9,7 @@ from webdriver_manager.chrome import ChromeDriverManager
 
 import requests
 
-import config_parser
+from config_parser import get_ortus_credentials
 
 ORTUS_LOGIN_URL = "https://id2.rtu.lv/openam/UI/Login"
 LOAD_TIMEOUT_SECS = 20
@@ -17,18 +17,18 @@ LOAD_TIMEOUT_SECS = 20
 
 class CalendarScraper:
     def __init__(self):
-        self.credentials: config_parser.ORTUSCredentials = config_parser.parse_config()
+        self.credentials = get_ortus_credentials()
 
         service = Service(ChromeDriverManager().install())
         options = Options()
         # options.add_experimental_option("detach", True)
         self.driver = webdriver.Chrome(options=options, service=service)
 
-        self.scrape()
+        self.run()
         self.driver.quit()
 
-    def scrape(self):
-        self.login(self.credentials.username, self.credentials.password)
+    def run(self):
+        self.login(self.credentials.identifier, self.credentials.password)
         self.navigate_schedule_page()
         self.download_schedule_file()
 
@@ -97,7 +97,6 @@ class CalendarScraper:
             studentiem_span_loaded = expected_conditions.presence_of_element_located(
                 (By.XPATH, studentiem_span_xpath)
             )
-
             WebDriverWait(self.driver, LOAD_TIMEOUT_SECS).until(studentiem_span_loaded)
 
             studentiem_span = self.driver.find_element(By.XPATH, studentiem_span_xpath)
@@ -122,7 +121,6 @@ class CalendarScraper:
             ical_download_a_loaded = expected_conditions.presence_of_element_located(
                 (By.XPATH, ical_download_a_xpath)
             )
-
             WebDriverWait(self.driver, LOAD_TIMEOUT_SECS).until(ical_download_a_loaded)
 
             ical_download_a = self.driver.find_element(By.XPATH, ical_download_a_xpath)

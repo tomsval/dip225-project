@@ -3,6 +3,13 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+# tokens
+token.json
+credentials.json
+
+# kalendars
+grafiks.ics
+
 # C extensions
 *.so
 
