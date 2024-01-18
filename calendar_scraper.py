@@ -24,6 +24,7 @@ class CalendarScraper:
         self.driver = webdriver.Chrome(options=options, service=service)
 
         self.scrape()
+        # self.driver.quit()
 
     def scrape(self):
         self.login(self.credentials.username, self.credentials.password)
@@ -77,7 +78,37 @@ class CalendarScraper:
             )
 
     def navigate_schedule_page(self):
-        pass
+        try:
+            studentiem_span_xpath = (
+                r"/html/body/div[1]/div/div[2]/div[1]/ul/li[2]/a/span"
+            )
+
+            grafiki_span_xpath = (
+                r"/html/body/div[1]/div/div[2]/div[2]/ul/li[3]/a[1]/span"
+            )
+
+            studentiem_span_loaded = expected_conditions.presence_of_element_located(
+                (By.XPATH, studentiem_span_xpath)
+            )
+
+            WebDriverWait(self.driver, LOAD_TIMEOUT_SECS).until(studentiem_span_loaded)
+
+            studentiem_span = self.driver.find_element(By.XPATH, studentiem_span_xpath)
+            studentiem_span.click()
+
+            grafiki_span_loaded = expected_conditions.presence_of_element_located(
+                (By.XPATH, grafiki_span_xpath)
+            )
+            WebDriverWait(self.driver, LOAD_TIMEOUT_SECS).until(grafiki_span_loaded)
+
+            grafiki_span = self.driver.find_element(By.XPATH, grafiki_span_xpath)
+
+            grafiki_span.click()
+        except TimeoutError as err:
+            self.driver.quit()
+            print(
+                f"Kļūda: ORTUS ielogošanās lapa '{ORTUS_LOGIN_URL}' lādējās pārāk ilgi: {err}"
+            )
 
     def download_schedule_file(self):
         pass
