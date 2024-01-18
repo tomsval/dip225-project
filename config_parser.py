@@ -18,10 +18,6 @@ def parse_config() -> ORTUSCredentials | None:
             username = config["ortus-identity"]["username"]
             password = config["ortus-identity"]["password"]
 
-            # test
-            print(username)
-            print(password)
-
             return ORTUSCredentials(username, password)
         except tomllib.TOMLDecodeError as err:
             print(f"Kļūda konfigurācijas faila dekodēšanā: {err}")
