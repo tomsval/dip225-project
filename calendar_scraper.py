@@ -9,8 +9,6 @@ from webdriver_manager.chrome import ChromeDriverManager
 
 import requests
 
-import datetime
-
 import config_parser
 
 ORTUS_LOGIN_URL = "https://id2.rtu.lv/openam/UI/Login"
@@ -23,11 +21,11 @@ class CalendarScraper:
 
         service = Service(ChromeDriverManager().install())
         options = Options()
-        options.add_experimental_option("detach", True)
+        # options.add_experimental_option("detach", True)
         self.driver = webdriver.Chrome(options=options, service=service)
 
         self.scrape()
-        # self.driver.quit()
+        self.driver.quit()
 
     def scrape(self):
         self.login(self.credentials.username, self.credentials.password)
@@ -74,6 +72,12 @@ class CalendarScraper:
             password_box.send_keys(password)
 
             login_button.click()
+
+            if self.driver.title == "ORTUS (Neveiksmīga autentifikācija)":
+                raise ValueError(
+                    "Kļūda ORTUS autentifikācijā. Lūdzu pārbaudiet, vai lietotājvārds un/vai parole ir pareiza."
+                )
+
         except TimeoutError as err:
             self.driver.quit()
             print(
