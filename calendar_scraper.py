@@ -81,7 +81,7 @@ class CalendarScraper:
         except TimeoutError as err:
             self.driver.quit()
             print(
-                f"Kļūda: ORTUS ielogošanās lapa '{ORTUS_LOGIN_URL}' lādējās pārāk ilgi: {err}"
+                f"Kļūda: ORTUS ielogošanās lapa '{ORTUS_LOGIN_URL}' lādējas pārāk ilgi: {err}"
             )
 
     def navigate_schedule_page(self):
@@ -113,9 +113,7 @@ class CalendarScraper:
             grafiki_span.click()
         except TimeoutError as err:
             self.driver.quit()
-            print(
-                f"Kļūda: ORTUS ielogošanās lapa '{ORTUS_LOGIN_URL}' lādējās pārāk ilgi: {err}"
-            )
+            print(f"Kļūda: Lapa '{self.driver.current_url}' lādējas pārāk ilgi: {err}")
 
     def download_schedule_file(self):
         try:
@@ -156,6 +154,4 @@ class CalendarScraper:
 
         except TimeoutError as err:
             self.driver.quit()
-            print(
-                f"Kļūda: ORTUS ielogošanās lapa '{ORTUS_LOGIN_URL}' lādējās pārāk ilgi: {err}"
-            )
+            print(f"Kļūda: Lapa '{self.driver.current_url}' lādējas pārāk ilgi: {err}")

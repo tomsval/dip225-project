@@ -3,7 +3,8 @@ import calendar_sync
 
 
 def main():
-    calscr = calendar_scraper.CalendarScraper()
+    # calendar_scraper.CalendarScraper()
+    calendar_sync.CalendarSync()
 
 
 if __name__ == "__main__":
