@@ -90,4 +90,4 @@ Kalendāra datnē esošas datumu un laika informācijas apstrādei pareizā form
 4. `CalendarSync.sync_calendar(self) -> None`: Izveido jaunu tukšu kalendāru lietotāja Google Calendar sistēmā, kura nosaukums ir pašreizējais laiks, un pievieno tam katru pārveidoto nodarbību grafika notikumu.
 
 ## Licence
-ORTUS kalendāra automātiskakatram ORTUS lietotājam unikālu hipersaiti, kas satur kalendāra datni.is sinhronizēšanas rīks ir licencēts zem [GNU Vispārējās publiskās licences 3. versijas](LICENSE).
+ORTUS kalendāra automātiskais sinhronizēšanas rīks ir licencēts zem [GNU Vispārējās publiskās licences 3. versijas](LICENSE).
